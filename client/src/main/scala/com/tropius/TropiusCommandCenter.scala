@@ -29,19 +29,15 @@ object CommandCenter {
             resJson = resJson.asJsObject.getFields("items")(0)
             val items = resJson.toString.parseJson.asInstanceOf[JsArray]
             resJson = items.elements(0)
-            resJson = resJson.asJsObject.getFields("artists")(0)
-            val artists = resJson.toString.parseJson.asInstanceOf[JsArray]
-            resJson = artists.elements(0)
-            resJson = resJson.asJsObject.getFields("id")(0)
+            val uri = resJson.asJsObject.getFields("uri")(0).toString.replace("\"", "")
             // Put the ID as our return value
             ret = JsObject(
-                            "val" -> resJson,
+                            "val" -> JsString(uri),
                             "err" -> JsBoolean(false)
                           )
             // Play the actual song
-            val apiInfo = "spotify:artist:%s".format(resJson).replace("\"", "")
             val cmd = Seq("qdbus", "org.mpris.MediaPlayer2.spotify", "/",
-                          "org.freedesktop.MediaPlayer2.OpenUri", apiInfo)
+                          "org.freedesktop.MediaPlayer2.OpenUri", uri)
             cmd.lineStream
         } catch {
             case e: Throwable  => ret = JsObject(
@@ -66,16 +62,15 @@ object CommandCenter {
             resJson = resJson.asJsObject.getFields("items")(0)
             val items = resJson.toString.parseJson.asInstanceOf[JsArray]
             resJson = items.elements(0)
-            resJson = resJson.asJsObject.getFields("id")(0)
+            val uri = resJson.asJsObject.getFields("uri")(0).toString.replace("\"", "")
             // Put the ID as our return value
             ret = JsObject(
-                            "val" -> resJson,
+                            "val" -> JsString(uri),
                             "err" -> JsBoolean(false)
                           )
             // Play the actual album
-            val apiInfo = "spotify:album:%s".format(resJson).replace("\"", "")
             val cmd = Seq("qdbus", "org.mpris.MediaPlayer2.spotify", "/",
-                          "org.freedesktop.MediaPlayer2.OpenUri", apiInfo)
+                          "org.freedesktop.MediaPlayer2.OpenUri", uri)
             cmd.lineStream
         } catch {
             case e: Throwable  => ret = JsObject(
@@ -100,16 +95,15 @@ object CommandCenter {
             resJson = resJson.asJsObject.getFields("items")(0)
             val items = resJson.toString.parseJson.asInstanceOf[JsArray]
             resJson = items.elements(0)
-            resJson = resJson.asJsObject.getFields("id")(0)
+            val uri = resJson.asJsObject.getFields("uri")(0).toString.replace("\"", "")
             // Put the ID as our return value
             ret = JsObject(
-                            "val" -> resJson,
+                            "val" -> JsString(uri),
                             "err" -> JsBoolean(false)
                           )
             // Play the actual artist
-            val apiInfo = "spotify:artist:%s".format(resJson).replace("\"", "")
             val cmd = Seq("qdbus", "org.mpris.MediaPlayer2.spotify", "/",
-                          "org.freedesktop.MediaPlayer2.OpenUri", apiInfo)
+                          "org.freedesktop.MediaPlayer2.OpenUri", uri)
             cmd.lineStream
         } catch {
             case e: Throwable  => ret = JsObject(
