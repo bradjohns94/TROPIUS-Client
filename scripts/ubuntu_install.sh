@@ -13,7 +13,7 @@ mv "target/scala-2.11/client-assembly-0.1.jar" "$HOME/.tropius/" > /dev/null 2>&
 # Move the upstart conf file to the corect location
 cd "../scripts"
 echo "Adding upstarts to ${HOME}/.config/upstart/..."
-mv "tropius_upstart.conf" "$HOME/.config/upstart/" > /dev/null 2>&1
-mv "spotify_upstart.conf" "$HOME/.config/upstart/" > /dev/null 2>&1
+cp "tropius_upstart.conf" "$HOME/.config/upstart/" > /dev/null 2>&1
+cp "spotify_upstart.conf" "$HOME/.config/upstart/" > /dev/null 2>&1
 
 echo "Installation complete!"

@@ -84,6 +84,20 @@ trait TropiusClient extends HttpService {
                         CommandCenter.command("PlayPause").prettyPrint
                     }
                 }
+            } ~
+            post {
+                var ret: JsValue = JsObject(
+                                             "msg" -> JsString("Failed to perform search"),
+                                             "err" -> JsBoolean(true)
+                                           )
+                decompressRequest() {
+                    entity(as[String]) { args =>
+                        ret = CommandCenter.compoundSearch(args.asJson)
+                        complete {
+                            ret.prettyPrint
+                        }
+                    }
+                }
             }
         } ~
         // Pause the currently playing spotify song

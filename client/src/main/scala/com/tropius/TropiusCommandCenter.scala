@@ -6,9 +6,10 @@ import spray.http._
 import spray.client.pipelining._
 
 import scala.concurrent._
-import duration._
 import scala.sys.process._
 import scalaj.http.Http
+import duration._
+import com.rockymadden.stringmetric.similarity.LevenshteinMetric
 
 object CommandCenter {
 
@@ -112,6 +113,13 @@ object CommandCenter {
                                   )
         }
         ret
+    }
+
+    def compoundSearch(args: JsValue): JsValue = {
+        val ret = LevenshteinMetric.compare("sitting", "kitten")
+        JsObject(
+            "ret" -> JsString(ret.toString)
+        )
     }
 
     def command(command: String): JsValue = {
