@@ -36,12 +36,12 @@ trait TropiusClient extends HttpService {
                 //}
             }
         } ~
-        // Play the top song result off spotify
-        path("TROPIUS" / "spotify" / "play" / "song" / Rest) { title =>
+        // Play the top track result off spotify
+        path("TROPIUS" / "spotify" / "play" / "track" / Rest) { title =>
             get {
                 respondWithMediaType(`application/json`) {
                     complete {
-                        CommandCenter.playSong(title).prettyPrint
+                        CommandCenter.playtrack(title).prettyPrint
                     }
                 }
             }
@@ -66,7 +66,7 @@ trait TropiusClient extends HttpService {
                 }
             }
         } ~
-        // Pause the currently playing spotify song
+        // Pause the currently playing spotify track
         path("TROPIUS" / "spotify" / "pause") {
             get {
                 respondWithMediaType(`application/json`) {
@@ -76,7 +76,7 @@ trait TropiusClient extends HttpService {
                 }
             }
         } ~
-        // Pause the currently playing spotify song
+        // Pause the currently playing spotify track
         path("TROPIUS" / "spotify" / "play") {
             get {
                 respondWithMediaType(`application/json`) {
@@ -100,7 +100,7 @@ trait TropiusClient extends HttpService {
                 }
             }
         } ~
-        // Pause the currently playing spotify song
+        // Pause the currently playing spotify track
         path("TROPIUS" / "spotify" / "next") {
             get {
                 respondWithMediaType(`application/json`) {
